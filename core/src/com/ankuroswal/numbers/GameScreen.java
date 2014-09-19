@@ -1,6 +1,6 @@
 package com.ankuroswal.numbers;
 
-import com.ankuroswal.Node.Node;
+import com.ankuroswal.numbers.Node.Node;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;

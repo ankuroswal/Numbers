@@ -1,4 +1,4 @@
-package com.ankuroswal.Node;
+package com.ankuroswal.numbers.Node;
 
 import java.util.Random;
 

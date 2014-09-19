@@ -1,8 +1,8 @@
 package com.ankuroswal.numbers;
 
-import com.ankuroswal.Node.Node;
-import com.ankuroswal.Node.Player;
-import com.ankuroswal.Node.NodeDefinitions;
+import com.ankuroswal.numbers.Node.Node;
+import com.ankuroswal.numbers.Node.NodeDefinitions;
+import com.ankuroswal.numbers.Node.Player;
 
 public class Map {
 
