@@ -54,7 +54,7 @@ public class Map {
 		return !result;
 	}
 
-	private boolean boundaryCheck(int x, int y) {
+	public boolean boundaryCheck(int x, int y) {
 		if ((x < 0 || x >= grid.length) || (y < 0 || y >= grid.length)
 				|| grid[x][y].type == NodeDefinitions.EMPTY) {
 			return false;

@@ -3,17 +3,21 @@ package com.ankuroswal.numbers.Node;
 import java.util.Random;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 
 public class Node {
 
 	private int value;
 	public Color color;
+	public Texture texture;
 	public NodeDefinitions type;
 
 	public Node(NodeDefinitions node) {
 		this.value = getValue(node);
 		this.type = node;
 		this.color = node.color;
+		this.texture = node.texture;
+
 	}
 
 	public Node transform() {
