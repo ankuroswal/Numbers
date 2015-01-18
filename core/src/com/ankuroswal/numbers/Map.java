@@ -1,8 +1,10 @@
 package com.ankuroswal.numbers;
 
+import com.ankuroswal.numbers.Node.GreenNode;
 import com.ankuroswal.numbers.Node.Node;
 import com.ankuroswal.numbers.Node.NodeDefinitions;
-import com.ankuroswal.numbers.Node.Player;
+import com.ankuroswal.numbers.Node.NodeFactory;
+import com.ankuroswal.numbers.Node.YellowNode;
 
 public class Map {
 
@@ -36,11 +38,11 @@ public class Map {
 		p.y = size / 2;
 		for (int x = 0; x < size; x++) {
 			for (int y = 0; y < size; y++) {
-				grid[x][y] = new Node(NodeDefinitions.GREEN);
+				grid[x][y] = new GreenNode();
 			}
 		}
-		grid[0][0] = new Node(NodeDefinitions.YELLOW);
-		grid[size - 1][size - 1] = new Node(NodeDefinitions.YELLOW);
+		grid[0][0] = new YellowNode();
+		grid[size - 1][size - 1] = new YellowNode();
 	}
 
 	public boolean isStuck() {
@@ -55,11 +57,9 @@ public class Map {
 	}
 
 	public boolean boundaryCheck(int x, int y) {
-		if ((x < 0 || x >= grid.length) || (y < 0 || y >= grid.length)
-				|| grid[x][y].type == NodeDefinitions.EMPTY) {
-			return false;
-		}
-		return true;
+		return !((x < 0 || x >= grid.length) || 
+				 (y < 0 || y >= grid.length) || 
+				 grid[x][y].getType() == NodeDefinitions.EMPTY);
 	}
 
 	public int getSize() {

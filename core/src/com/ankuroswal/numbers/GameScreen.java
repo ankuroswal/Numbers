@@ -13,14 +13,15 @@ public class GameScreen implements Screen, InputProcessor {
 	private Map map;
 	private OpQueue queue;
 	private GameRender game;
-
+	private PlayerRender player;
+	
 	public GameScreen() {
 		batch = new SpriteBatch();
 		map = new Map();
 		queue = new OpQueue();
 		game = new GameRender(map, queue);
+		player = new PlayerRender(map);
 		Gdx.input.setInputProcessor(this);
-
 	}
 
 	@Override
@@ -30,6 +31,7 @@ public class GameScreen implements Screen, InputProcessor {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		game.render(batch);
+		player.render(batch, delta);
 		batch.end();
 	}
 
@@ -80,15 +82,19 @@ public class GameScreen implements Screen, InputProcessor {
 		switch (keycode) {
 		case Keys.DPAD_LEFT:
 			queue.useQ(map.playerMove(-1, 0));
+			player.move(2);
 			break;
 		case Keys.DPAD_RIGHT:
 			queue.useQ(map.playerMove(1, 0));
+			player.move(3);
 			break;
 		case Keys.DPAD_UP:
 			queue.useQ(map.playerMove(0, 1));
+			player.move(1);
 			break;
 		case Keys.DPAD_DOWN:
 			queue.useQ(map.playerMove(0, -1));
+			player.move(0);
 			break;
 		}
 		if (map.isStuck()) {

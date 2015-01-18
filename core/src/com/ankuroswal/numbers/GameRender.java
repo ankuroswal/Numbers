@@ -28,47 +28,56 @@ public class GameRender {
 	}
 
 	public void render(SpriteBatch batch) {
-		
+
 		font.setColor(1, 1, 1, 1.0f);
 		font.draw(batch, queue.getScore() + "", 400, 400);
 
 		for (int i = 0; i < queue.getQ().size(); i++) {
-			font.setColor(1, 1, 1, 1.0f);
+			if (i == 0) {
+				font.setColor(1, 1, 1, 1.0f);
+			} else {
+				font.setColor(.5f, .5f, .5f, 1.0f);
+			}
 			font.draw(batch, queue.getQ().get(i).renderString + "",
-					50 * i + 100, 400);
+					50 * i + 100, 40);
+
 		}
 
 		for (int x = 0; x < map.getSize(); x++) {
 			for (int y = 0; y < map.getSize(); y++) {
+
+				Node n = map.getGrid()[x][y];
+				batch.draw(n.getTexture(), x * UIVars.TSize + UIVars.TdX, y * 64
+						+ UIVars.TSize + UIVars.TdX);
 				if (map.getPlayer().x != x || map.getPlayer().y != y) {
-					Node n = map.getGrid()[x][y];
-					batch.draw(n.texture, x * 64 + 100 - 64, y * 64 + 100 - 64);
 					font.setColor(Color.BLACK);
-					font.draw(batch, n.getValue() + "", x * 64 + 100 - 45,
-							y * 64 + 100 - 32);
+					font.draw(batch, n.getValue() + "", x * UIVars.TSize
+							+ UIVars.FdX, y * UIVars.TSize + UIVars.FdY);
+				} else {
+
 				}
 			}
 		}
+
 		for (int x = 0; x < map.getSize(); x++) {
 			for (int y = 0; y < map.getSize(); y++) {
 				Node n = map.getGrid()[x][y];
-				drawShadow(n, map.getGrid(), x - 1, y, 2, batch);
-				drawShadow(n, map.getGrid(), x + 1, y, 3, batch);
 				drawShadow(n, map.getGrid(), x, y - 1, 1, batch);
 				drawShadow(n, map.getGrid(), x, y + 1, 0, batch);
+				drawShadow(n, map.getGrid(), x - 1, y, 2, batch);
+				drawShadow(n, map.getGrid(), x + 1, y, 3, batch);
 			}
 		}
 	}
 
 	private void drawShadow(Node current, Node[][] grid, int x, int y, int pos,
 			SpriteBatch b) {
-		if (!map.boundaryCheck(x, y)) {
-			return;
+		if (map.boundaryCheck(x, y)) {
+			if (current.getType() != NodeDefinitions.EMPTY
+					&& current.transform().getType() == grid[x][y].getType()) {
+				b.draw(shadow[pos], x * UIVars.TSize + UIVars.TdX, y
+						* UIVars.TSize + UIVars.TdY + UIVars.TSize);
+			}
 		}
-		if (current.type != NodeDefinitions.EMPTY
-				&& current.transform().type == grid[x][y].type) {
-			b.draw(shadow[pos], x * 64 + 100 - 64, y * 64 + 100 - 64);
-		}
-
 	}
 }
