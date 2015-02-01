@@ -1,16 +1,26 @@
 package com.ankuroswal.numbers;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Numbers extends Game {
 
+    SpriteBatch batch;
+	BitmapFont font;
+	
 	public void create() {
-		this.setScreen(new GameScreen());
+		batch = new SpriteBatch();
+		font = new BitmapFont();
+		
+		this.setScreen(new MainMenuScreen(this));
 	}
 
 	@Override
 	public void dispose() {
 		super.dispose();
+		batch.dispose();
+		font.dispose();
 	}
 
 	@Override

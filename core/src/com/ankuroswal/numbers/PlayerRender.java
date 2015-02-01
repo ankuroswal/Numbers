@@ -1,5 +1,7 @@
 package com.ankuroswal.numbers;
 
+import com.ankuroswal.Utils.UI;
+import com.ankuroswal.numbers.Map.Map;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -13,8 +15,8 @@ public class PlayerRender {
 	private Vector2 currentpos;
 	private Map map;
 
-	Animation walkAnimation; // #3
-	Texture walkSheet; // #4
+	Animation walkAnimation; 
+	Texture walkSheet; 
 	
 	Interpolation interpolate;
 	
@@ -24,8 +26,8 @@ public class PlayerRender {
 	TextureRegion[] Down = new TextureRegion[2];
 	TextureRegion[] Current = new TextureRegion[2];
 
-	TextureRegion currentFrame; // #7
-	float stateTime; // #8
+	TextureRegion currentFrame; 
+	float stateTime; 
 
 	private Boolean play;
 
@@ -33,7 +35,7 @@ public class PlayerRender {
 		currentpos = convertPosition(map.getPlayer().x, map.getPlayer().y);
 		this.map = map;
 		this.play = false;
-		walkSheet = new Texture(Gdx.files.internal("alienSpriteSheet.png")); // #9
+		walkSheet = new Texture(Gdx.files.internal("alienSpriteSheet.png")); 
 		TextureRegion[][] tmp = TextureRegion.split(walkSheet, 32, 32);
 
 		int index = 0;
@@ -45,7 +47,7 @@ public class PlayerRender {
 			index++;
 		}
 		changeCurrent(Up);
-		walkAnimation = new Animation(0.25f, Current); // #11
+		walkAnimation = new Animation(0.25f, Current);
 		stateTime = 0f;
 	}
 
@@ -62,7 +64,7 @@ public class PlayerRender {
 		}
 		currentFrame = walkAnimation.getKeyFrame(stateTime, true);
 		Vector2 temp = convertPosition(map.getPlayer().x, map.getPlayer().y);
-		batch.draw(currentFrame, temp.x, temp.y); // #17
+		batch.draw(currentFrame, temp.x, temp.y);
 
 	}
 
@@ -79,8 +81,7 @@ public class PlayerRender {
 	}
 
 	private Vector2 convertPosition(int x, int y) {
-		return new Vector2(x * UIVars.TSize + UIVars.TdX, y * UIVars.TSize
-				+ UIVars.TdY + 64);
+		return new Vector2(x * UI.TILEWIDTH, y * UI.TILEHEIGHT);
 	}
 
 	public boolean isPlaying() {

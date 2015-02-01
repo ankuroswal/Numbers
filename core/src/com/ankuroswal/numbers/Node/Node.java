@@ -1,72 +1,106 @@
 package com.ankuroswal.numbers.Node;
 
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.ankuroswal.numbers.Actions.Action;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
+import com.badlogic.gdx.math.Vector2;
 
 public abstract class Node {
-	
-	protected int value = 0;
-	protected Color color;
-	protected NodeDefinitions type;
-	private Texture texture;
-	
-	public Node(int min, int max, String path, Color color, NodeDefinitions type)
-	{
-		// make sure everything is initialized from child classes
-	    if (path == null) throw new NullPointerException("path may not be null");
-	    if (color == null) throw new NullPointerException("color may not be null");
-	    if (type == null) throw new NullPointerException("type may not be null");
-	    
-		this.color = color;
-		this.type = type;
-		this.value = 0;
-		calculateValue(min, max);
-		setTexture(path);
-	}
-	
-	// what type of node is this
-	public  NodeDefinitions getType()
-	{
-		 return type;
-	}
-	
-	// returns the transformation node
-	public abstract Node transform();
-	
-	// returns texture to render node
-	public Texture getTexture()
-	{
-		return texture;
-	}
-	
-	// returns the base color for the node
-	public Color getColor()
-	{
-		return color;
-	}
 
+	private int x, y;
+	private int value = 0;
+	private String valueString = "";
+	private int id = 0;
+	private Color color;
+	private List<Action> actionList = new ArrayList<Action>();
+	
+	public Node(int min, int max, Color color) {
+		this.color = color;
+		calculateValue(min, max);
+	}
+	
+	// returns texture region this must be a static reference in child classes
+	public abstract TiledMapTile getTile();
+	
+	// ------------------------------- ACTION METHODS  -------------------------------
+	
+	public void runActions()
+	{
+		for (Action i : actionList)
+		{
+			i.activate(this);
+		}
+	}
+	
+	protected void addAction(Action a)
+	{
+		actionList.add(a);
+	}
+	
+	// ------------------------------- GETTERS AND SETTERS -------------------------------
+	
 	// the current value of the node in terms of score
 	public Integer getValue()
 	{
 		return value;
 	}
 	
-	// Initializes texture
-	private void setTexture(String path)
+	public int getID()
 	{
-		texture = new Texture(path);
+		return id;
 	}
 	
+	protected void setID(int id)
+	{
+		this.id = id;
+	}
+	
+	public Color getColor()
+	{
+		return color;
+	}
+	
+	public Vector2 getPosition()
+	{
+		return new Vector2(x, y);
+	}
+	
+	public void setPosition(Vector2 pos)
+	{
+		x = (int) pos.x;
+		y = (int) pos.y;
+	}
+	
+	public int getX() {
+		return x;
+	}
+	
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+	
+	public String getValueString()
+	{
+		return valueString;
+	}
+	
+	// ------------------------------- UTILS -------------------------------
+
 	// gets a random value in between the min and max of this node
 	private void calculateValue(int min, int max)
 	{
-		Random random = new Random();
-		int range = ((max - min) + 1) + min;
-		if (range < 0)
-			value = random.nextInt(range*-1)*-1;		
-		else
-			value = random.nextInt(range);
+		value = min+(int)(Math.random()*((max-min) + 1));		
+		valueString = String.valueOf(value);
 	}
 }

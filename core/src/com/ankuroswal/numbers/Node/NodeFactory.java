@@ -2,19 +2,19 @@ package com.ankuroswal.numbers.Node;
 
 public class NodeFactory {
 
-	public static Node create(NodeDefinitions type) {
-
-		switch (type) {
-		case EMPTY:
+	public static Node getNode(int id)
+	{
+		switch(id)
+		{
+		case 0:
 			return new EmptyNode();
-		case GREEN:
-			return new GreenNode();
-		case RED:
+		case 1:
 			return new RedNode();
-		case YELLOW:
+		case 2:
+			return new GreenNode();
+		case 3: 
 			return new YellowNode();
-		default:
-			return null;		
 		}
+		return null;	
 	}
 }
