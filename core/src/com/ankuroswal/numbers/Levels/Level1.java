@@ -7,7 +7,8 @@ public class Level1 extends Level{
 										{3, 2, 1, 2},
 										{3, 2, 1, 2}};
 	public Level1() {
-		super(layout);
+		super(layout, 2000);
 	}
+	
 
 }

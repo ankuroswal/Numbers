@@ -5,8 +5,7 @@ public class Level2 extends Level {
 										  { 3, 2, 1, 2, 3, 2, 1, 2 },
 										  { 3, 2, 1, 2, 3, 2, 1, 2 }, 
 										  { 3, 2, 1, 2, 3, 2, 1, 2 } };
-
 	public Level2() {
-		super(layout);
+		super(layout, 2000);
 	}
 }

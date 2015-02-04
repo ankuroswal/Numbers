@@ -2,14 +2,16 @@ package com.ankuroswal.numbers.Levels;
 
 import com.badlogic.gdx.math.Vector2;
 
-public class Level {
+public abstract class Level {
 
 	private Integer[][] layout;
 	private Vector2 playerPos = new Vector2(0,0);
+	private float winningScore;
 	
-	public Level(Integer[][] layout)
+	public Level(Integer[][] layout, float winningScore)
 	{
 		this.layout = layout;
+		this.winningScore = winningScore;
 	}
 	
 	public void setLayout(Integer[][] layout)
@@ -30,4 +32,8 @@ public class Level {
 		this.playerPos = playerPos;
 	}
 	
+	public float getWinningScore()
+	{
+		return winningScore;
+	}
 }
