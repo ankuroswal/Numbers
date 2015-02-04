@@ -31,7 +31,7 @@ public class PlayerRender {
 
 	private Boolean play;
 
-	PlayerRender(Map map) {
+	public PlayerRender(Map map) {
 		currentpos = convertPosition(map.getPlayer().x, map.getPlayer().y);
 		this.map = map;
 		this.play = false;
@@ -80,7 +80,8 @@ public class PlayerRender {
 		}
 	}
 
-	private Vector2 convertPosition(int x, int y) {
+	private Vector2 convertPosition(int x, int y) 
+	{
 		return new Vector2(x * UI.TILEWIDTH, y * UI.TILEHEIGHT);
 	}
 
