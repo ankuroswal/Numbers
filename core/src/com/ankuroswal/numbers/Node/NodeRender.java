@@ -37,7 +37,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 public class NodeRender extends OrthogonalTiledMapRenderer {
-	private BitmapFont font;
+	private final BitmapFont font;
 
 	public NodeRender(TiledMap map, float unitScale, Batch batch) {
 		super(map, unitScale, batch);

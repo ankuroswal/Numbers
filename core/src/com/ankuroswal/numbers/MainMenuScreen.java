@@ -4,19 +4,20 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class MainMenuScreen implements Screen {
 
 	private final Numbers game;
 	private OrthographicCamera camera;
-	private int width;
-	private int height;
-
+	private SpriteBatch batch;
+	private BitmapFont font;
+	
 	public MainMenuScreen(final Numbers game) {
 		this.game = game;
-		width = Gdx.graphics.getHeight();
-		height = Gdx.graphics.getWidth();
-
+		this.batch = new SpriteBatch();
+		this.font = new BitmapFont();
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 400, 400);
 	}
@@ -27,22 +28,21 @@ public class MainMenuScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		camera.update();
-		game.batch.setProjectionMatrix(camera.combined);
+		batch.setProjectionMatrix(camera.combined);
 
-		game.batch.begin();
-		game.font.draw(game.batch, "Welcome to Numbers!!! ", 400/2, 400/2);
-		game.font.draw(game.batch, "Tap anywhere to begin!", 400/2, 400/2- 50);
-		game.batch.end();
+		batch.begin();
+		font.draw(batch, "Welcome to Numbers!!! ", 400/2, 400/2);
+		font.draw(batch, "Tap anywhere to begin!", 400/2, 400/2- 50);
+		batch.end();
 
 		if (Gdx.input.isTouched()) {
-			game.setScreen(new GameScreen());
+			game.setScreen(new LevelScreen(game));
 			dispose();
 		}
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -72,7 +72,8 @@ public class MainMenuScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-
+		font.dispose();
+		batch.dispose();
 	}
 }
+

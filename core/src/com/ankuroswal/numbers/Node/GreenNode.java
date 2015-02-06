@@ -10,7 +10,7 @@ import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 
 public class GreenNode extends Node{
 
-	private static final StaticTiledMapTile REGION = 
+	private final StaticTiledMapTile REGION = 
 			new StaticTiledMapTile(new TextureRegion(new Texture("greentile.png"), UI.TILEWIDTH, UI.TILEHEIGHT));
 	
 	private static final Color COLOR = new Color(0,1,0,1);

@@ -33,9 +33,10 @@ public class LevelRenderer {
 
 	public void render(float delta) {
 		camera.update();
+		batch.setProjectionMatrix(camera.combined);
+
 		tiledMapRenderer.setView(camera);
 		tiledMapRenderer.render();
-		batch.setProjectionMatrix(camera.combined);
 	}
 
 	public void resize() {
@@ -51,5 +52,9 @@ public class LevelRenderer {
 		camera.position.set(center);
 		camera.zoom = 1.1f;
 	}
-
+	
+	public OrthographicCamera getCamera()
+	{
+		return camera;
+	}
 }

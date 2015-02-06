@@ -12,19 +12,20 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GameScreen implements Screen, InputProcessor {
-
-	private SpriteBatch batch;
+	private final Numbers game;
 	private OpQueue queue;
 	private PlayerRender player;
 	private BitmapFont font;
 	private LevelRenderer levelrender;
-	private int currentlevel = 0;
+	private SpriteBatch batch;
 
-	public GameScreen() {
+	public GameScreen(final Numbers game, int level) {
+		this.game = game;
 		batch = new SpriteBatch();
+		font = new BitmapFont();
 		queue = new OpQueue();
 		levelrender = new LevelRenderer(batch);
-		levelrender.setLevel(currentlevel);
+		levelrender.setLevel(level);
 		player = new PlayerRender(Map.getInstance());
 
 		font = new BitmapFont(Gdx.files.internal("opensans.fnt"),
@@ -34,7 +35,6 @@ public class GameScreen implements Screen, InputProcessor {
 
 	@Override
 	public void render(float delta) {
-
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -49,8 +49,8 @@ public class GameScreen implements Screen, InputProcessor {
 			} else {
 				font.setColor(.5f, .5f, .5f, 1.0f);
 			}
-			font.draw(batch, queue.getQ().get(i).toString() + "",
-					50 * i + 100, 200);
+			font.draw(batch, queue.getQ().get(i).toString() + "", 50 * i + 100,
+					200);
 		}
 		batch.end();
 	}
@@ -86,8 +86,8 @@ public class GameScreen implements Screen, InputProcessor {
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-
+		font.dispose();
+		batch.dispose();
 	}
 
 	@Override
@@ -110,17 +110,18 @@ public class GameScreen implements Screen, InputProcessor {
 			player.move(0);
 			break;
 		case Keys.A:
-			// camera.zoom += 0.02;
+			levelrender.getCamera().zoom += 0.02;
 			break;
 		case Keys.Q:
-			// camera.zoom -= 0.02;
+			levelrender.getCamera().zoom -= 0.02;
 			break;
 		}
 
 		if (Map.getInstance().isStuck()) {
 			queue.setScore(0);
 			queue.startQ(4);
-			levelrender.setLevel(currentlevel++);
+			game.setScreen(new LevelScreen(game));
+			dispose();
 		}
 		return false;
 	}
@@ -132,38 +133,33 @@ public class GameScreen implements Screen, InputProcessor {
 
 	@Override
 	public boolean keyTyped(char character) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean mouseMoved(int screenX, int screenY) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean scrolled(int amount) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
+	
 }
