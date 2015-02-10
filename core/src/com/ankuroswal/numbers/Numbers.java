@@ -1,22 +1,22 @@
 package com.ankuroswal.numbers;
 
+import com.ankuroswal.numbers.Levels.LevelSave;
 import com.badlogic.gdx.Game;
 
 public class Numbers extends Game {
 
 	public void create() {
+		LevelSave.load();
 		this.setScreen(new MainMenuScreen(this));
 	}
 
 	@Override
 	public void dispose() {
 		super.dispose();
-
 	}
 
 	@Override
 	public void render() {
-
 		super.render();
 	}
 

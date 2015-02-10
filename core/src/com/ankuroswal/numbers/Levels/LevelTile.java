@@ -3,6 +3,7 @@ package com.ankuroswal.numbers.Levels;
 import com.ankuroswal.numbers.GameScreen;
 import com.ankuroswal.numbers.Numbers;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -11,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 public class LevelTile extends Actor {
 
 	private TextureRegion region;
+	private BitmapFont font;
 	private Level level;
 	private int id;
 
@@ -18,6 +20,7 @@ public class LevelTile extends Actor {
 		this.id = id;
 		level = LevelFactory.getLevel(id);
 		region = new TextureRegion(LevelConverter.convertLeveltoTexture(level));
+		font = new BitmapFont();
         setBounds(getX(),getY(), region.getRegionWidth(), region.getRegionHeight());
         
         this.addListener(new InputListener(){
@@ -30,8 +33,14 @@ public class LevelTile extends Actor {
 
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
+		font.draw(batch, LevelSave.getLevel(id) + "", getX(), getY() + region.getRegionHeight() + 30);
 		batch.draw(region, getX(), getY(), getOriginX(), getOriginY(), getWidth(), getHeight(),
                 getScaleX(), getScaleY(), getRotation());
+	}
+	
+	public Level getLevel()
+	{
+		return level;
 	}
 	
 	public int getID() {

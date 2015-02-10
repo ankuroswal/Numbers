@@ -13,11 +13,12 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 public class LevelScreen implements Screen, InputProcessor {
 	private Stage stage;
-
+	
 	public LevelScreen(final Numbers game) {
 		
 		int width = Gdx.graphics.getWidth();
 		int height = Gdx.graphics.getHeight();
+				
 		Table container = new Table();
 		Table table = new Table();
 		ScrollPane pane = new ScrollPane(table);
@@ -31,7 +32,6 @@ public class LevelScreen implements Screen, InputProcessor {
 			LevelTile tile = new LevelTile(i, game);
 			table.add(tile).pad(10);
 		}
-
 		Gdx.input.setInputProcessor(stage);
 
 	}

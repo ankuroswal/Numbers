@@ -1,6 +1,8 @@
 package com.ankuroswal.numbers;
 
 import com.ankuroswal.numbers.Levels.LevelRenderer;
+import com.ankuroswal.numbers.Levels.LevelSave;
+import com.ankuroswal.numbers.Levels.LevelUIRenderer;
 import com.ankuroswal.numbers.Map.Map;
 import com.ankuroswal.numbers.Operations.OpQueue;
 import com.badlogic.gdx.Gdx;
@@ -10,24 +12,28 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.input.GestureDetector.GestureListener;
+import com.badlogic.gdx.math.Vector2;
 
-public class GameScreen implements Screen, InputProcessor {
+public class GameScreen implements Screen, InputProcessor, GestureListener  {
 	private final Numbers game;
 	private OpQueue queue;
 	private PlayerRender player;
 	private BitmapFont font;
 	private LevelRenderer levelrender;
 	private SpriteBatch batch;
-
-	public GameScreen(final Numbers game, int level) {
+	private LevelUIRenderer levelUI;
+	private Integer level;
+	public GameScreen(final Numbers game, Integer level) {
 		this.game = game;
+		this.level = level;
 		batch = new SpriteBatch();
 		font = new BitmapFont();
 		queue = new OpQueue();
+		levelUI = new LevelUIRenderer(queue, font);
 		levelrender = new LevelRenderer(batch);
 		levelrender.setLevel(level);
 		player = new PlayerRender(Map.getInstance());
-
 		font = new BitmapFont(Gdx.files.internal("opensans.fnt"),
 				Gdx.files.internal("opensans.png"), false);
 		Gdx.input.setInputProcessor(this);
@@ -39,19 +45,9 @@ public class GameScreen implements Screen, InputProcessor {
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		levelrender.render(delta);
+		levelUI.render(delta);
 		batch.begin();
 		player.render(batch, delta);
-		font.setColor(1, 1, 1, 1.0f);
-		font.draw(batch, queue.getScore() + "", 15, 200);
-		for (int i = 0; i < queue.getQ().size(); i++) {
-			if (i == 0) {
-				font.setColor(1, 1, 1, 1.0f);
-			} else {
-				font.setColor(.5f, .5f, .5f, 1.0f);
-			}
-			font.draw(batch, queue.getQ().get(i).toString() + "", 50 * i + 100,
-					200);
-		}
 		batch.end();
 	}
 
@@ -118,6 +114,8 @@ public class GameScreen implements Screen, InputProcessor {
 		}
 
 		if (Map.getInstance().isStuck()) {
+			LevelSave.setLevel(level, queue.getScore());
+			LevelSave.save();
 			queue.setScore(0);
 			queue.startQ(4);
 			game.setScreen(new LevelScreen(game));
@@ -158,6 +156,55 @@ public class GameScreen implements Screen, InputProcessor {
 
 	@Override
 	public boolean scrolled(int amount) {
+		return false;
+	}
+
+	@Override
+	public boolean touchDown(float x, float y, int pointer, int button) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean tap(float x, float y, int count, int button) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean longPress(float x, float y) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean fling(float velocityX, float velocityY, int button) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean pan(float x, float y, float deltaX, float deltaY) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean panStop(float x, float y, int pointer, int button) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean zoom(float initialDistance, float distance) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2,
+			Vector2 pointer1, Vector2 pointer2) {
+		// TODO Auto-generated method stub
 		return false;
 	}
 

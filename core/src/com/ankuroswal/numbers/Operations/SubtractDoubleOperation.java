@@ -8,7 +8,7 @@ public class SubtractDoubleOperation extends Operations{
 	
 	@Override
 	public double compute(float value, double score) {
-		return score - value*2;
+		return score - (value*2);
 	}
 
 	@Override

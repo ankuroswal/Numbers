@@ -10,7 +10,7 @@ public class UI {
 	public static final Integer TILEWIDTH = 32;
 	public static final Integer TILEHEIGHT = 32;
 	
-	public static final Integer LEVELTILESIZE = 300;
+	public static final Integer LEVELTILESIZE = 100;
 	
 	// move text on tile
 	public static final Float TdX = 4.0f;
