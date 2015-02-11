@@ -5,16 +5,29 @@ import com.ankuroswal.numbers.Node.Node;
 import com.ankuroswal.numbers.Node.NodeFactory;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Pixmap.Format;
+import com.badlogic.gdx.graphics.Texture;
 
 public class LevelConverter {
 	public static Texture convertLeveltoTexture(Level level) {
-		
+
 		Pixmap map = new Pixmap(UI.LEVELTILESIZE, UI.LEVELTILESIZE,
 				Format.RGBA8888);
 
 		Integer[][] layout = level.getLayout();
+
+		// rotate matrix
+		int m = layout[0].length;
+		int n = layout.length;
+
+		Integer[][] tmp = new Integer[m][n];
+
+		for (int i = 0; i < n; i++)
+			for (int j = 0; j < m; j++)
+				tmp[m - 1 - j][i] = layout[i][j];
+		
+		layout = tmp;
+		
 		map.setColor(Color.DARK_GRAY);
 		map.fill();
 		int height = layout[0].length;
@@ -32,8 +45,8 @@ public class LevelConverter {
 
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
-				Node n = NodeFactory.getNode(layout[x][y]);
-				map.setColor(n.getColor());
+				Node node = NodeFactory.getNode(layout[x][y]);
+				map.setColor(node.getColor());
 				map.fillRectangle(y * tileSize + differenceWidth, x * tileSize
 						+ differenceHeight, tileSize, tileSize);
 			}

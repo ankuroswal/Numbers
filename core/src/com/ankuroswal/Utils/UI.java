@@ -15,5 +15,7 @@ public class UI {
 	// move text on tile
 	public static final Float TdX = 4.0f;
 	public static final Float TdY = -8.0f;
+	
+	
 
 }

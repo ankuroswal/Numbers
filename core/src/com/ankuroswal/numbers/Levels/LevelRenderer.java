@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.collision.BoundingBox;
 
 public class LevelRenderer {
 	private TiledMap tiledMap;
@@ -28,6 +29,7 @@ public class LevelRenderer {
 		Map.getInstance().setLevel(level);
 		tiledMap.getLayers().add(Map.getInstance().getNodeLayer());
 		tiledMapRenderer = new NodeRender(tiledMap, 1.0f, batch);
+		camera.frustum.boundsInFrustum(createBoundingBox());
 
 	}
 
@@ -52,9 +54,17 @@ public class LevelRenderer {
 		camera.position.set(center);
 		camera.zoom = 1.1f;
 	}
-	
-	public OrthographicCamera getCamera()
-	{
+
+	public OrthographicCamera getCamera() {
 		return camera;
+	}
+
+	private BoundingBox createBoundingBox() {
+		Vector3 max = new Vector3(Map.getInstance().getWidth() * UI.TILEWIDTH,
+				Map.getInstance().getHeight() * UI.TILEHEIGHT, 0);
+		
+		Vector3 min = new Vector3(0, 0 ,0);
+		
+		return new BoundingBox(min, max);
 	}
 }

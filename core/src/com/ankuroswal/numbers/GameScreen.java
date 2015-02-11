@@ -1,21 +1,20 @@
 package com.ankuroswal.numbers;
 
+import com.ankuroswal.Utils.Move;
 import com.ankuroswal.numbers.Levels.LevelRenderer;
 import com.ankuroswal.numbers.Levels.LevelSave;
 import com.ankuroswal.numbers.Levels.LevelUIRenderer;
 import com.ankuroswal.numbers.Map.Map;
+import com.ankuroswal.numbers.Map.TouchController;
 import com.ankuroswal.numbers.Operations.OpQueue;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.input.GestureDetector.GestureListener;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.input.GestureDetector;
 
-public class GameScreen implements Screen, InputProcessor, GestureListener  {
+public class GameScreen implements Screen {
 	private final Numbers game;
 	private OpQueue queue;
 	private PlayerRender player;
@@ -24,6 +23,8 @@ public class GameScreen implements Screen, InputProcessor, GestureListener  {
 	private SpriteBatch batch;
 	private LevelUIRenderer levelUI;
 	private Integer level;
+	private TouchController touch;
+
 	public GameScreen(final Numbers game, Integer level) {
 		this.game = game;
 		this.level = level;
@@ -36,7 +37,8 @@ public class GameScreen implements Screen, InputProcessor, GestureListener  {
 		player = new PlayerRender(Map.getInstance());
 		font = new BitmapFont(Gdx.files.internal("opensans.fnt"),
 				Gdx.files.internal("opensans.png"), false);
-		Gdx.input.setInputProcessor(this);
+		touch = new TouchController(levelrender.getCamera(), this);
+		Gdx.input.setInputProcessor(new GestureDetector(touch));
 	}
 
 	@Override
@@ -82,37 +84,37 @@ public class GameScreen implements Screen, InputProcessor, GestureListener  {
 
 	@Override
 	public void dispose() {
+		levelUI.dispose();
+		player.dispose();
 		font.dispose();
 		batch.dispose();
 	}
 
-	@Override
-	public boolean keyDown(int keycode) {
-		switch (keycode) {
-		case Keys.DPAD_LEFT:
-			queue.useQ(Map.getInstance().playerMove(-1, 0));
-			player.move(2);
-			break;
-		case Keys.DPAD_RIGHT:
-			queue.useQ(Map.getInstance().playerMove(1, 0));
-			player.move(3);
-			break;
-		case Keys.DPAD_UP:
-			queue.useQ(Map.getInstance().playerMove(0, 1));
-			player.move(1);
-			break;
-		case Keys.DPAD_DOWN:
-			queue.useQ(Map.getInstance().playerMove(0, -1));
-			player.move(0);
-			break;
-		case Keys.A:
-			levelrender.getCamera().zoom += 0.02;
-			break;
-		case Keys.Q:
-			levelrender.getCamera().zoom -= 0.02;
-			break;
+	public void move(Move move) {
+		if (!player.isPlaying()) {
+			switch (move) {
+			case LEFT:
+				queue.useQ(Map.getInstance().playerMove(-1, 0));
+				player.move(2);
+				break;
+			case RIGHT:
+				queue.useQ(Map.getInstance().playerMove(1, 0));
+				player.move(3);
+				break;
+			case UP:
+				queue.useQ(Map.getInstance().playerMove(0, 1));
+				player.move(1);
+				break;
+			case DOWN:
+				queue.useQ(Map.getInstance().playerMove(0, -1));
+				player.move(0);
+				break;
+			case STAY:
+				break;
+			default:
+				break;
+			}
 		}
-
 		if (Map.getInstance().isStuck()) {
 			LevelSave.setLevel(level, queue.getScore());
 			LevelSave.save();
@@ -121,92 +123,6 @@ public class GameScreen implements Screen, InputProcessor, GestureListener  {
 			game.setScreen(new LevelScreen(game));
 			dispose();
 		}
-		return false;
 	}
 
-	@Override
-	public boolean keyUp(int keycode) {
-		return false;
-	}
-
-	@Override
-	public boolean keyTyped(char character) {
-		return false;
-	}
-
-	@Override
-	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		return false;
-	}
-
-	@Override
-	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		return false;
-	}
-
-	@Override
-	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		return false;
-	}
-
-	@Override
-	public boolean mouseMoved(int screenX, int screenY) {
-		return false;
-	}
-
-	@Override
-	public boolean scrolled(int amount) {
-		return false;
-	}
-
-	@Override
-	public boolean touchDown(float x, float y, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean tap(float x, float y, int count, int button) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean longPress(float x, float y) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean fling(float velocityX, float velocityY, int button) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean pan(float x, float y, float deltaX, float deltaY) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean panStop(float x, float y, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean zoom(float initialDistance, float distance) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2,
-			Vector2 pointer1, Vector2 pointer2) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	
 }

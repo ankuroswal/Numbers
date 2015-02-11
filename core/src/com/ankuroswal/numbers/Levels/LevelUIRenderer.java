@@ -31,7 +31,6 @@ public class LevelUIRenderer {
 	
 		stage.addActor(score);
 		stage.addActor(operations);
-
 	}
 
 	public void render(float delta) {
