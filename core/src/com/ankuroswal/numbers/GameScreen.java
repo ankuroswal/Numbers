@@ -47,10 +47,11 @@ public class GameScreen implements Screen {
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		levelrender.render(delta);
-		levelUI.render(delta);
 		batch.begin();
 		player.render(batch, delta);
 		batch.end();
+		levelUI.render(delta);
+
 	}
 
 	@Override

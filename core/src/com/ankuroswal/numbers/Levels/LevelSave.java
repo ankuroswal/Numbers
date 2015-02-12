@@ -44,9 +44,4 @@ public class LevelSave {
 		return directory.get(id);
 	}
 
-	protected void initialize() {
-		for (int i = 0; i < LevelFactory.TOTALLEVELS; i++) {
-			directory.add(i, 0.0);
-		}
-	}
 }

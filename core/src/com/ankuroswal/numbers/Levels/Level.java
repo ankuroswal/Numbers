@@ -1,13 +1,24 @@
 package com.ankuroswal.numbers.Levels;
 
+import java.util.ArrayList;
+
+import com.ankuroswal.numbers.Operations.Operations;
 import com.badlogic.gdx.math.Vector2;
 
 public abstract class Level {
 
 	private Integer[][] layout;
 	private Vector2 playerPos = new Vector2(0, 0);
-	private float winningScore;
-
+	private double winningScore;
+	private double currentScore;
+	private boolean open;
+	private ArrayList<Operations> operations;
+	
+	public Level(int id)
+	{
+		
+	}
+	
 	public Level(Integer[][] layout, float winningScore) {
 		setLayout(layout);
 		this.winningScore = winningScore;
@@ -38,7 +49,31 @@ public abstract class Level {
 		this.playerPos = playerPos;
 	}
 
-	public float getWinningScore() {
+	public double getWinningScore() {
 		return winningScore;
+	}
+
+	public boolean isOpen() {
+		return open;
+	}
+
+	public void setOpen(boolean open) {
+		this.open = open;
+	}
+
+	public ArrayList<Operations> getOperations() {
+		return operations;
+	}
+
+	public void setOperations(ArrayList<Operations> operations) {
+		this.operations = operations;
+	}
+
+	public double getCurrentScore() {
+		return currentScore;
+	}
+
+	public void setCurrentScore(double currentScore) {
+		this.currentScore = currentScore;
 	}
 }

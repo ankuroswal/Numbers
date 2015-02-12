@@ -103,5 +103,4 @@ public class PlayerRender {
 	{
 		walkSheet.dispose();
 	}
-
 }

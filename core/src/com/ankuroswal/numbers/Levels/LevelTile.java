@@ -2,6 +2,7 @@ package com.ankuroswal.numbers.Levels;
 
 import com.ankuroswal.numbers.GameScreen;
 import com.ankuroswal.numbers.Numbers;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -21,6 +22,9 @@ public class LevelTile extends Actor {
 		level = LevelFactory.getLevel(id);
 		region = new TextureRegion(LevelConverter.convertLeveltoTexture(level));
 		font = new BitmapFont();
+		font.getRegion().getTexture()
+		.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+
         setBounds(getX(),getY(), region.getRegionWidth(), region.getRegionHeight());
         
         this.addListener(new InputListener(){

@@ -3,7 +3,8 @@ package com.ankuroswal.Utils;
 public class UI {
 	
 	public static final int VIRTUAL_WIDTH = 480;
-	public static final int VIRTUAL_HEIGHT = 320;
+	public static final int VIRTUAL_HEIGHT = 800;
+	
 	public static final float ASPECT_RATIO = (float)VIRTUAL_WIDTH/(float)VIRTUAL_HEIGHT;
 	
 	public static final Integer TILESIZE = 32;

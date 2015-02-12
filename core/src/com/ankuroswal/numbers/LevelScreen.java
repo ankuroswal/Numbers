@@ -1,5 +1,6 @@
 package com.ankuroswal.numbers;
 
+import com.ankuroswal.Utils.UI;
 import com.ankuroswal.numbers.Levels.LevelFactory;
 import com.ankuroswal.numbers.Levels.LevelTile;
 import com.badlogic.gdx.Gdx;
@@ -9,20 +10,25 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class LevelScreen implements Screen, InputProcessor {
 	private Stage stage;
-	
+	private Viewport viewport;
 	public LevelScreen(final Numbers game) {
 		
-		int width = Gdx.graphics.getWidth();
-		int height = Gdx.graphics.getHeight();
+		int width = UI.VIRTUAL_HEIGHT/2;
+		int height = UI.VIRTUAL_WIDTH/2;
+		
+		viewport = new ExtendViewport(width, height);
 				
 		Table container = new Table();
 		Table table = new Table();
+		table.setFillParent(true);
+		container.setFillParent(true);
 		ScrollPane pane = new ScrollPane(table);
-	    stage = new Stage(new StretchViewport(width, height));
+	    stage = new Stage(viewport);
 		container.add(pane).width(width).height(height);
 	    container.row().fillX();
 	    container.setBounds(0,0,width, height);
