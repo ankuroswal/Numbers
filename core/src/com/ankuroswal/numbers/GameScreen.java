@@ -26,6 +26,8 @@ public class GameScreen implements Screen {
 	private TouchController touch;
 
 	public GameScreen(final Numbers game, Integer level) {
+		game.getMyRequestHandler().showAds(false);
+
 		this.game = game;
 		this.level = level;
 		batch = new SpriteBatch();

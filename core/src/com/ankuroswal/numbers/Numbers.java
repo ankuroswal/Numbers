@@ -1,9 +1,17 @@
 package com.ankuroswal.numbers;
 
+import com.ankuroswal.numbers.Google.IActivityRequestHandler;
 import com.ankuroswal.numbers.Levels.LevelSave;
 import com.badlogic.gdx.Game;
 
 public class Numbers extends Game {
+
+	private IActivityRequestHandler myRequestHandler;
+
+	public Numbers(IActivityRequestHandler handler) {
+		handler.showAds(false);
+		myRequestHandler = handler;
+	}
 
 	public void create() {
 		LevelSave.load();
@@ -33,5 +41,9 @@ public class Numbers extends Game {
 	@Override
 	public void resume() {
 		super.resume();
+	}
+
+	public IActivityRequestHandler getMyRequestHandler() {
+		return myRequestHandler;
 	}
 }

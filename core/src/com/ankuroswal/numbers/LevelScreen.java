@@ -17,7 +17,7 @@ public class LevelScreen implements Screen, InputProcessor {
 	private Stage stage;
 	private Viewport viewport;
 	public LevelScreen(final Numbers game) {
-		
+		game.getMyRequestHandler().showAds(true);
 		int width = UI.VIRTUAL_HEIGHT/2;
 		int height = UI.VIRTUAL_WIDTH/2;
 		
