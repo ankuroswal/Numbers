@@ -1,6 +1,7 @@
 package com.ankuroswal.numbers.Levels;
 
 import com.ankuroswal.Utils.UI;
+import com.ankuroswal.numbers.External.LevelDirectory;
 import com.ankuroswal.numbers.Map.Map;
 import com.ankuroswal.numbers.Node.NodeLayer;
 import com.ankuroswal.numbers.Node.NodeRender;
@@ -25,7 +26,7 @@ public class LevelRenderer {
 	public void setLevel(int id) {
 		// setup the map
 		tiledMap = new TiledMap();
-		Level level = LevelFactory.getLevel(id);
+		Level level = LevelDirectory.getInstance().getLevel(id);
 		Map.getInstance().setLevel(level);
 		tiledMap.getLayers().add(Map.getInstance().getNodeLayer());
 		tiledMapRenderer = new NodeRender(tiledMap, 1.0f, batch);

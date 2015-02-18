@@ -29,7 +29,7 @@ public class Map {
 		}
 		return instance;
 	}
-
+	
 	public void setLevel(Level level) {
 		Integer[][] layout = level.getLayout();
 		height = layout[0].length;

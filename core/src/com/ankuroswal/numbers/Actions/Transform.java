@@ -24,5 +24,4 @@ public class Transform implements Action {
 	public int getPriority() {
 		return 100;
 	}
-	
 }

@@ -1,8 +1,10 @@
 package com.ankuroswal.numbers;
 
 import com.ankuroswal.Utils.Move;
+import com.ankuroswal.numbers.External.LevelDirectory;
+import com.ankuroswal.numbers.External.SaveFragment;
+import com.ankuroswal.numbers.External.UserSaveDirectory;
 import com.ankuroswal.numbers.Levels.LevelRenderer;
-import com.ankuroswal.numbers.Levels.LevelSave;
 import com.ankuroswal.numbers.Levels.LevelUIRenderer;
 import com.ankuroswal.numbers.Map.Map;
 import com.ankuroswal.numbers.Map.TouchController;
@@ -119,13 +121,18 @@ public class GameScreen implements Screen {
 			}
 		}
 		if (Map.getInstance().isStuck()) {
-			LevelSave.setLevel(level, queue.getScore());
-			LevelSave.save();
-			queue.setScore(0);
-			queue.startQ(4);
-			game.setScreen(new LevelScreen(game));
-			dispose();
+			end();
 		}
+	}
+
+	private void end() {
+		SaveFragment fragment = new SaveFragment(level, queue.getScore(), true);
+		UserSaveDirectory.getInstance().saveScoreFragment(fragment);
+		UserSaveDirectory.getInstance().save();
+		queue.setScore(0);
+		queue.startQ(4);
+		game.setScreen(new LevelScreen(game));
+		dispose();
 	}
 
 }

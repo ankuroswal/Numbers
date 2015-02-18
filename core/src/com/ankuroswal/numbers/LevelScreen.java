@@ -1,7 +1,8 @@
 package com.ankuroswal.numbers;
 
 import com.ankuroswal.Utils.UI;
-import com.ankuroswal.numbers.Levels.LevelFactory;
+import com.ankuroswal.numbers.External.LevelDirectory;
+import com.ankuroswal.numbers.External.UserSaveDirectory;
 import com.ankuroswal.numbers.Levels.LevelTile;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
@@ -16,28 +17,46 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 public class LevelScreen implements Screen, InputProcessor {
 	private Stage stage;
 	private Viewport viewport;
+
 	public LevelScreen(final Numbers game) {
 		game.getMyRequestHandler().showAds(true);
-		int width = UI.VIRTUAL_HEIGHT/2;
-		int height = UI.VIRTUAL_WIDTH/2;
-		
+		int width = UI.VIRTUAL_HEIGHT / 2;
+		int height = UI.VIRTUAL_WIDTH / 2;
+
 		viewport = new ExtendViewport(width, height);
-				
+
 		Table container = new Table();
 		Table table = new Table();
 		table.setFillParent(true);
 		container.setFillParent(true);
 		ScrollPane pane = new ScrollPane(table);
-	    stage = new Stage(viewport);
+		stage = new Stage(viewport);
 		container.add(pane).width(width).height(height);
-	    container.row().fillX();
-	    container.setBounds(0,0,width, height);
-	    stage.addActor(container);
-	    
-		for (int i = 1; i <= LevelFactory.TOTALLEVELS; i++) {
-			LevelTile tile = new LevelTile(i, game);
-			table.add(tile).pad(10);
+		container.row().fillX();
+		container.setBounds(0, 0, width, height);
+		stage.addActor(container);
+
+		int totalLevels = LevelDirectory.getInstance().getTotalLevels();
+		for (int i = 0; i < totalLevels; i++) {
+			if (UserSaveDirectory.getInstance().getsaveScoreFragment(i)
+					.isOpen()) {
+				LevelTile tile = new LevelTile(i, game);
+				table.add(tile).pad(10);
+			}
 		}
+
+		for (int i = 0; i < totalLevels; i++) {
+			if (i != 0) {
+				double score = UserSaveDirectory.getInstance()
+						.getsaveScoreFragment(i - 1).getScore();
+				double winningScore = UserSaveDirectory.getInstance()
+						.getsaveScoreFragment(i - 1).getScore();
+				if (score >= winningScore)
+					UserSaveDirectory.getInstance().getsaveScoreFragment(i)
+							.setOpen(true);
+			}
+		}
+
 		Gdx.input.setInputProcessor(stage);
 
 	}
@@ -53,7 +72,7 @@ public class LevelScreen implements Screen, InputProcessor {
 
 	@Override
 	public void resize(int width, int height) {
-	    stage.getViewport().update(width, height, false);
+		stage.getViewport().update(width, height, false);
 	}
 
 	@Override

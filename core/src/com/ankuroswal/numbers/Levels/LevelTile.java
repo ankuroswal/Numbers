@@ -2,6 +2,8 @@ package com.ankuroswal.numbers.Levels;
 
 import com.ankuroswal.numbers.GameScreen;
 import com.ankuroswal.numbers.Numbers;
+import com.ankuroswal.numbers.External.LevelDirectory;
+import com.ankuroswal.numbers.External.UserSaveDirectory;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -19,7 +21,7 @@ public class LevelTile extends Actor {
 
 	public LevelTile(final int id, final Numbers game) {
 		this.id = id;
-		level = LevelFactory.getLevel(id);
+		level = LevelDirectory.getInstance().getLevel(id);
 		region = new TextureRegion(LevelConverter.convertLeveltoTexture(level));
 		font = new BitmapFont();
 		font.getRegion().getTexture()
@@ -37,7 +39,7 @@ public class LevelTile extends Actor {
 
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-		font.draw(batch, LevelSave.getLevel(id) + "", getX(), getY() + region.getRegionHeight() + 30);
+		font.draw(batch, UserSaveDirectory.getInstance().getsaveScoreFragment(id).getScore() + "", getX(), getY() + region.getRegionHeight() + 30);
 		batch.draw(region, getX(), getY(), getOriginX(), getOriginY(), getWidth(), getHeight(),
                 getScaleX(), getScaleY(), getRotation());
 	}

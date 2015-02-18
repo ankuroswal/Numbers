@@ -1,30 +1,46 @@
 package com.ankuroswal.numbers.Levels;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
+import com.ankuroswal.numbers.External.LevelDirectory;
 import com.ankuroswal.numbers.Operations.Operations;
 import com.badlogic.gdx.math.Vector2;
 
-public abstract class Level {
+public class Level {
 
 	private Integer[][] layout;
 	private Vector2 playerPos = new Vector2(0, 0);
 	private double winningScore;
-	private double currentScore;
-	private boolean open;
+	private int id;
 	private ArrayList<Operations> operations;
 	
+
+	@SuppressWarnings("unused")
+	private Level(){};
+	
+	// make a level
 	public Level(int id)
 	{
-		
+		copy(LevelDirectory.getInstance().getLevel(id));
 	}
 	
-	public Level(Integer[][] layout, float winningScore) {
+	// copy constructor
+	public Level(Level level)
+	{
+		operations = new ArrayList<Operations>();
+		copy(level);
+	}
+	
+	// constructor used for saving
+	public Level(Integer id, Integer[][] layout, double winningScore, ArrayList<Operations>  operations) {
 		setLayout(layout);
 		this.winningScore = winningScore;
+		this.id = id;
+		this.operations = operations;
 	}
 
-	public void setLayout(Integer[][] layout) {
+	private void setLayout(Integer[][] layout) {
 		int m = layout[0].length;
 		int n = layout.length;
 
@@ -52,28 +68,22 @@ public abstract class Level {
 	public double getWinningScore() {
 		return winningScore;
 	}
-
-	public boolean isOpen() {
-		return open;
-	}
-
-	public void setOpen(boolean open) {
-		this.open = open;
-	}
-
+	
 	public ArrayList<Operations> getOperations() {
 		return operations;
 	}
 
-	public void setOperations(ArrayList<Operations> operations) {
-		this.operations = operations;
+	public int getID()
+	{
+		return id;
 	}
-
-	public double getCurrentScore() {
-		return currentScore;
-	}
-
-	public void setCurrentScore(double currentScore) {
-		this.currentScore = currentScore;
+	
+	public void copy(Level level)
+	{
+		setLayout(level.getLayout());
+		setPlayerPos(level.getPlayerPos());
+		winningScore = level.getWinningScore();
+		if (level.getOperations() != null)
+			Collections.copy(operations, level.getOperations());
 	}
 }
