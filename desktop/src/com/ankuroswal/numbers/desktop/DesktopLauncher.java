@@ -1,7 +1,6 @@
 package com.ankuroswal.numbers.desktop;
 
 import com.ankuroswal.numbers.Numbers;
-import com.ankuroswal.numbers.External.LevelCreationTool;
 import com.ankuroswal.numbers.Google.IActivityRequestHandler;
 import com.ankuroswal.numbers.Google.IRequestHandlerDesktop;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;

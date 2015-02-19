@@ -11,9 +11,7 @@ public class UserSaveDirectory {
 
 	private static UserSaveDirectory instance = null;
 	private final static String LOADFILE = "SCORESAVEFILE";
-	private ArrayList<SaveFragment> directory = new ArrayList<SaveFragment>();
-	private Boolean load = false;
-	
+	private ArrayList<SaveFragment> directory = new ArrayList<SaveFragment>();	
 	private UserSaveDirectory(){};
 	
 	// Singleton design pattern that is kind of thread safe
@@ -29,10 +27,6 @@ public class UserSaveDirectory {
 	}
 
 	public void saveScoreFragment(SaveFragment fragment) {
-		// load directory if it's not load
-		if (!load)
-			load();
-
 		int id = fragment.getId();
 		SaveFragment current = directory.get(id);
 
@@ -51,6 +45,14 @@ public class UserSaveDirectory {
 			Json json = new Json();
 			directory = json.fromJson(ArrayList.class, handle);
 		}
+		
+		// ensure there is a directory
+		if (directory == null)
+			directory = new ArrayList<SaveFragment>();	
+		
+		// new game save
+		if (directory.size() == 0 || directory.get(0) == null)
+			directory.add(0, new SaveFragment(0, 0.0, true));
 
 		// initialize new levels that haven't been added to save game list
 		for (int i = directory.size(); i <= LevelDirectory.getInstance()
@@ -58,9 +60,8 @@ public class UserSaveDirectory {
 			directory.add(i, new SaveFragment(i, 0.0, false));
 		}
 
-		load = true;
 	}
-
+	
 	public void save() {
 		directory.trimToSize();
 		FileHandle handle = (Gdx.files.local(LOADFILE + ".json"));
@@ -69,12 +70,10 @@ public class UserSaveDirectory {
 		handle.writeString(json.prettyPrint(directory), false);
 	}
 
-	public SaveFragment getsaveScoreFragment(Integer id) {
-		if (!load) load();
-		
-		if (directory.size() <= id) 
+	public SaveFragment getsaveScoreFragment(Integer id) {		
+		if (directory.size() < id) 
 		{
-			directory.add(id, new SaveFragment(id));
+			directory.add(id, new SaveFragment(id, 0.0, false));
 		}
 		return directory.get(id);
 	}

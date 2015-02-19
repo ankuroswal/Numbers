@@ -1,6 +1,7 @@
 package com.ankuroswal.numbers;
 
-import com.ankuroswal.numbers.External.LevelCreationTool;
+import com.ankuroswal.numbers.External.LevelDirectory;
+import com.ankuroswal.numbers.External.UserSaveDirectory;
 import com.ankuroswal.numbers.Google.IActivityRequestHandler;
 import com.badlogic.gdx.Game;
 
@@ -14,8 +15,8 @@ public class Numbers extends Game {
 	}
 
 	public void create() {
-		LevelCreationTool create = 	new LevelCreationTool();
-		create.CreateLevel();
+		LevelDirectory.getInstance().load();
+		UserSaveDirectory.getInstance().load();
 		this.setScreen(new MainMenuScreen(this));
 	}
 

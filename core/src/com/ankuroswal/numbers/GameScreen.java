@@ -1,7 +1,6 @@
 package com.ankuroswal.numbers;
 
 import com.ankuroswal.Utils.Move;
-import com.ankuroswal.numbers.External.LevelDirectory;
 import com.ankuroswal.numbers.External.SaveFragment;
 import com.ankuroswal.numbers.External.UserSaveDirectory;
 import com.ankuroswal.numbers.Levels.LevelRenderer;

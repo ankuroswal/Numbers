@@ -61,7 +61,7 @@ public class LevelDirectory {
 	
 	
 	// these are created with the tools
-	protected void save()
+	public void save()
 	{
 		directory.trimToSize();
 		FileHandle handle = (Gdx.files.local(LEVELDIRECTORYPATH + ".json"));
@@ -71,10 +71,15 @@ public class LevelDirectory {
 
 	}
 	
-	protected void addLevel(Level level)
+	public void addLevel(Level level)
 	{
 		if (!load) load();
 
+		int size = level.getID() + 1;
+		directory.ensureCapacity(size);
+	    while (directory.size() < size) {
+	    	directory.add(null);
+	    }
 		// TODO: test if level is fully initialized
 		directory.add(level.getID(), level);
 		clean();
@@ -86,7 +91,7 @@ public class LevelDirectory {
 		
 		for (int i  = 0; i < directory.size(); i++)
 		{
-			if (directory.get(i).getID() != i)
+			if (directory.get(i) != null && directory.get(i).getID() != i)
 			{
 				directory.remove(i);
 			}

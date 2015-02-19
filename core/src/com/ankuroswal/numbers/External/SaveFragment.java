@@ -15,13 +15,6 @@ public class SaveFragment {
 		this.open = open;
 	}
 	
-	public SaveFragment(int id)
-	{
-		this.id = id;
-		score = 0.0;
-		open = false;
-	}
-	
 	public int getId() {
 		return id;
 	}
