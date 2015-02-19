@@ -1,7 +1,7 @@
 package com.ankuroswal.numbers;
 
-import com.ankuroswal.Utils.UI;
 import com.ankuroswal.numbers.Map.Map;
+import com.ankuroswal.numbers.Utils.UI;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;

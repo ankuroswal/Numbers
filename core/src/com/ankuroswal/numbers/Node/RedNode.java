@@ -1,7 +1,7 @@
 package com.ankuroswal.numbers.Node;
 
-import com.ankuroswal.Utils.UI;
 import com.ankuroswal.numbers.Actions.Transform;
+import com.ankuroswal.numbers.Utils.UI;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;

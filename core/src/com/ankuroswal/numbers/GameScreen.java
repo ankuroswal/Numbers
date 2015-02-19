@@ -1,6 +1,5 @@
 package com.ankuroswal.numbers;
 
-import com.ankuroswal.Utils.Move;
 import com.ankuroswal.numbers.External.SaveFragment;
 import com.ankuroswal.numbers.External.UserSaveDirectory;
 import com.ankuroswal.numbers.Levels.LevelRenderer;
@@ -8,6 +7,7 @@ import com.ankuroswal.numbers.Levels.LevelUIRenderer;
 import com.ankuroswal.numbers.Map.Map;
 import com.ankuroswal.numbers.Map.TouchController;
 import com.ankuroswal.numbers.Operations.OpQueue;
+import com.ankuroswal.numbers.Utils.Move;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;

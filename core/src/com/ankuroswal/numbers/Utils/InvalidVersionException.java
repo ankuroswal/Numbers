@@ -1,4 +1,4 @@
-package com.ankuroswal.Utils;
+package com.ankuroswal.numbers.Utils;
 
 public class InvalidVersionException extends Exception{
 	

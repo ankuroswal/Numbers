@@ -1,11 +1,11 @@
 package com.ankuroswal.numbers.Map;
 
-import com.ankuroswal.Utils.UI;
 import com.ankuroswal.numbers.Player;
 import com.ankuroswal.numbers.Levels.Level;
 import com.ankuroswal.numbers.Node.Node;
 import com.ankuroswal.numbers.Node.NodeFactory;
 import com.ankuroswal.numbers.Node.NodeLayer;
+import com.ankuroswal.numbers.Utils.UI;
 
 public class Map {
 

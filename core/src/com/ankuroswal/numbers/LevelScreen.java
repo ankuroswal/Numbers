@@ -1,9 +1,9 @@
 package com.ankuroswal.numbers;
 
-import com.ankuroswal.Utils.UI;
 import com.ankuroswal.numbers.External.LevelDirectory;
 import com.ankuroswal.numbers.External.UserSaveDirectory;
 import com.ankuroswal.numbers.Levels.LevelTile;
+import com.ankuroswal.numbers.Utils.UI;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;

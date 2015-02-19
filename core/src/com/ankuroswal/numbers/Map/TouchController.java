@@ -1,8 +1,8 @@
 package com.ankuroswal.numbers.Map;
 
-import com.ankuroswal.Utils.Move;
-import com.ankuroswal.Utils.UI;
 import com.ankuroswal.numbers.GameScreen;
+import com.ankuroswal.numbers.Utils.Move;
+import com.ankuroswal.numbers.Utils.UI;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Vector2;

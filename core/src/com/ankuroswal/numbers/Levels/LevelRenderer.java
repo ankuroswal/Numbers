@@ -1,10 +1,10 @@
 package com.ankuroswal.numbers.Levels;
 
-import com.ankuroswal.Utils.UI;
 import com.ankuroswal.numbers.External.LevelDirectory;
 import com.ankuroswal.numbers.Map.Map;
 import com.ankuroswal.numbers.Node.NodeLayer;
 import com.ankuroswal.numbers.Node.NodeRender;
+import com.ankuroswal.numbers.Utils.UI;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
